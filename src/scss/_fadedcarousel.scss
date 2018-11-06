@@ -1,0 +1,180 @@
+//////////////////////////////
+// Coverflow styles
+//////////////////////////////
+$slideWidthMobile: 320px;
+$slideHeightMobile: 220px;
+
+$slideWidthTablet: 500px;
+$slideHeightTablet: 330px;
+
+$slideWidthDesktop: 680px;
+$slideHeightDesktop: 330px;
+
+$transitionSpeed: 350ms;
+$transitionEasing: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+/* easeOutCubic */
+
+$nonfocusSpacing: 120px;
+$focusMargin: 140px;
+$maxNonfocusOpacity: 0.5;
+$maxNonfocusScale: 0.6;
+$minNonfocusScale: 0.2;
+$numNonfocusVisible: 3;
+
+$maxImages: 50;
+$lightBlue: #54baea;
+$darkBlue: #14284b;
+$screen-sm: 768px;
+$screen-md: 992px;
+$screen-lg: 1200px;
+
+// Main Styles
+.coverflow {
+	margin-top: 20px;
+	position: relative;
+	height: $slideHeightMobile;
+	overflow: hidden;
+	@media (min-width: $screen-sm) {
+		height: $slideHeightTablet;
+	}
+	@media (min-width: $screen-md) {
+		height: $slideHeightDesktop;
+	}
+
+	&__slide {
+		user-select: none;
+		width: $slideWidthMobile;
+		height: $slideHeightMobile;
+		transition: transform $transitionSpeed $transitionEasing, opacity $transitionSpeed $transitionEasing;
+		@media (min-width: $screen-sm) {
+			width: $slideWidthTablet;
+			height: $slideHeightTablet;
+		}
+		@media (min-width: $screen-md) {
+			width: $slideWidthDesktop;
+			height: $slideHeightDesktop;
+		}
+
+		&[data-coverflow-index] {
+			position: absolute;
+			left: 50%;
+			transform-origin: 50% 50%;
+		}
+	}
+
+	&__caption {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		background: rgba(20, 40, 75, 0.8);
+		color: #fff;
+		text-align: center;
+		padding: 20px;
+		@media (min-width: $screen-sm) {
+			padding: 20px 40px;
+		}
+		@media (min-width: $screen-md) {
+			padding: 20px 80px;
+		}
+	}
+
+	@for $x from 1 through $maxImages {
+		&[data-coverflow-position="#{$x}"] {
+			@for $y from 1 through $maxImages {
+				@if ($y < $x) {
+					//left
+					$dist: $x - $y;
+
+					.coverflow__slide[data-coverflow-index="#{$y}"] {
+						z-index: $maxImages - $dist;
+						$scale: ((($maxNonfocusScale - $minNonfocusScale) / ($numNonfocusVisible - 1)) * ($numNonfocusVisible - ($dist - 1))) + $minNonfocusScale;
+						opacity: ($maxNonfocusOpacity / $numNonfocusVisible) * ($numNonfocusVisible - ($dist - 1));
+						$translateX: (-1 * $nonfocusSpacing * ($dist - 1)) - ($slideWidthMobile / 2) - $focusMargin;
+						$translateXTablet: (-1 * $nonfocusSpacing * ($dist - 1)) - ($slideWidthTablet / 2) - $focusMargin;
+						$translateXDesktop: (-1 * $nonfocusSpacing * ($dist - 1)) - ($slideWidthDesktop / 2) - $focusMargin;
+						transform: translateX($translateX) scale($scale);
+						@media (min-width: $screen-sm) {
+							transform: translateX($translateXTablet) scale($scale);
+						}
+						@media (min-width: $screen-md) {
+							transform: translateX($translateXDesktop) scale($scale);
+						}
+					}
+				}
+
+				@if ($y==$x) {
+					//center (focus)
+					.coverflow__slide[data-coverflow-index="#{$y}"] {
+						z-index: $maxImages;
+						transform: translateX(-50%);
+					}
+				}
+
+				@if ($y > $x) {
+					//right
+					$dist: $y - $x;
+
+					.coverflow__slide[data-coverflow-index="#{$y}"] {
+						z-index: $maxImages - $dist;
+						$scale: ((($maxNonfocusScale - $minNonfocusScale) / ($numNonfocusVisible - 1)) * ($numNonfocusVisible - ($dist - 1))) + $minNonfocusScale;
+						opacity: ($maxNonfocusOpacity / $numNonfocusVisible) * ($numNonfocusVisible - ($dist - 1));
+						$translateX: ($nonfocusSpacing * ($dist - 1)) - ($slideWidthMobile / 2) + $focusMargin;
+						$translateXTablet: ($nonfocusSpacing * ($dist - 1)) - ($slideWidthTablet / 2) + $focusMargin;
+						$translateXDesktop: ($nonfocusSpacing * ($dist - 1)) - ($slideWidthDesktop / 2) + $focusMargin;
+						transform: translateX($translateX) scale($scale);
+						@media (min-width: $screen-sm) {
+							transform: translateX($translateXTablet) scale($scale);
+						}
+						@media (min-width: $screen-md) {
+							transform: translateX($translateXDesktop) scale($scale);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// Arrows
+.arrow-control {
+	cursor: pointer;
+	z-index: $maxImages + 1;
+	position: absolute;
+	top: 50%;
+    width: 40px;
+    height: 40px;
+	transform-origin: 50% 50%;
+    transform: translateY(-50%);
+    
+    &:before, &:after {
+        content: '';
+        position: absolute;
+		width: 0;
+        height: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.prev-arrow {
+	@extend .arrow-control;
+	left: 0%;
+
+	&:before {
+		border-top: 10px solid transparent;
+		border-bottom: 10px solid transparent;
+		border-right: 18px solid $lightBlue;
+	}
+}
+
+.next-arrow {
+	@extend .arrow-control;
+	right: 0%;
+
+	&:after {
+		border-top: 10px solid transparent;
+		border-bottom: 10px solid transparent;
+		border-left: 18px solid $lightBlue;
+	}
+}

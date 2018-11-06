@@ -1,0 +1,52 @@
+@mixin clearfix() {
+	&:after {
+		display: table;
+		content: "";
+		clear: both;
+	}
+}
+
+@mixin truncate($width) {
+	max-width: $width;
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@mixin truncate-multiline($lines: 2, $line-height: 1.6) {
+	display: block;
+	display: -webkit-box;
+	position: relative;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: unquote($line-height + "em");
+	max-height: unquote($line-height * $lines + "em");
+	-webkit-line-clamp: $lines;
+}
+
+@mixin aspect-ratio($x: 16, $y: 9) {
+    &:before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 0;
+        padding-top: unquote(($y / $x) * 100 + "%");
+    }
+}
+
+@mixin override-gutters($gutter-width: 15px) {
+    .container, .container-fluid {
+        padding-left: $gutter-width;
+        padding-right: $gutter-width;
+    }
+    .row {
+        margin-left: unquote("-" + $gutter-width);
+        margin-right: unquote("-" + $gutter-width);
+    }
+    *[class^="col-"] {
+        padding-left: $gutter-width;
+        padding-right: $gutter-width;
+    }
+}
