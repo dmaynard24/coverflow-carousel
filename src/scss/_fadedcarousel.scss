@@ -21,8 +21,9 @@ $maxNonfocusScale: 0.6;
 $minNonfocusScale: 0.2;
 $numNonfocusVisible: 3;
 
-$maxImages: 50;
+$maxImages: 15;
 $lightBlue: #54baea;
+$lightGray: #f0f0f0;
 $darkBlue: #14284b;
 $screen-sm: 768px;
 $screen-md: 992px;
@@ -60,13 +61,17 @@ $screen-lg: 1200px;
 			left: 50%;
 			transform-origin: 50% 50%;
 		}
+
+		* {
+			pointer-events: none;
+		}
 	}
 
 	&__caption {
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		background: rgba(20, 40, 75, 0.8);
+		background: rgba(20, 40, 75, 0.7);
 		color: #fff;
 		text-align: center;
 		padding: 20px;
@@ -82,12 +87,13 @@ $screen-lg: 1200px;
 		&[data-coverflow-position="#{$x}"] {
 			@for $y from 1 through $maxImages {
 				@if ($y < $x) {
-					//left
+					// left
 					$dist: $x - $y;
 
 					.coverflow__slide[data-coverflow-index="#{$y}"] {
+						cursor: pointer;
 						z-index: $maxImages - $dist;
-						$scale: ((($maxNonfocusScale - $minNonfocusScale) / ($numNonfocusVisible - 1)) * ($numNonfocusVisible - ($dist - 1))) + $minNonfocusScale;
+						$scale: abs(((($maxNonfocusScale - $minNonfocusScale) / ($numNonfocusVisible - 1)) * ($numNonfocusVisible - ($dist - 1))) + $minNonfocusScale);
 						opacity: ($maxNonfocusOpacity / $numNonfocusVisible) * ($numNonfocusVisible - ($dist - 1));
 						$translateX: (-1 * $nonfocusSpacing * ($dist - 1)) - ($slideWidthMobile / 2) - $focusMargin;
 						$translateXTablet: (-1 * $nonfocusSpacing * ($dist - 1)) - ($slideWidthTablet / 2) - $focusMargin;
@@ -103,20 +109,22 @@ $screen-lg: 1200px;
 				}
 
 				@if ($y==$x) {
-					//center (focus)
+					// center (focus)
 					.coverflow__slide[data-coverflow-index="#{$y}"] {
+						cursor: default;
 						z-index: $maxImages;
 						transform: translateX(-50%);
 					}
 				}
 
 				@if ($y > $x) {
-					//right
+					// right
 					$dist: $y - $x;
 
 					.coverflow__slide[data-coverflow-index="#{$y}"] {
+						cursor: pointer;
 						z-index: $maxImages - $dist;
-						$scale: ((($maxNonfocusScale - $minNonfocusScale) / ($numNonfocusVisible - 1)) * ($numNonfocusVisible - ($dist - 1))) + $minNonfocusScale;
+						$scale: abs(((($maxNonfocusScale - $minNonfocusScale) / ($numNonfocusVisible - 1)) * ($numNonfocusVisible - ($dist - 1))) + $minNonfocusScale);
 						opacity: ($maxNonfocusOpacity / $numNonfocusVisible) * ($numNonfocusVisible - ($dist - 1));
 						$translateX: ($nonfocusSpacing * ($dist - 1)) - ($slideWidthMobile / 2) + $focusMargin;
 						$translateXTablet: ($nonfocusSpacing * ($dist - 1)) - ($slideWidthTablet / 2) + $focusMargin;
@@ -176,5 +184,74 @@ $screen-lg: 1200px;
 		border-top: 10px solid transparent;
 		border-bottom: 10px solid transparent;
 		border-left: 18px solid $lightBlue;
+	}
+}
+
+//////////////////////////////
+// Component styles
+//////////////////////////////
+.faded-carousel-component {
+	padding: 30px 0;
+	opacity: 0;
+	pointer-events: none;
+
+	&.active {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.faded-carousel-title {
+		position: relative;
+		margin: 0 0 40px;
+
+		&:after {
+			content: '';
+			position: absolute;
+			bottom: -20px;
+			left: 0;
+			width: 40px;
+			height: 2px;
+			background-color: $lightBlue;
+		}
+	}
+
+	.faded-carousel {
+		.faded-carousel-slide-titles {
+			display: none;
+			@media (min-width: $screen-md) {
+				display: flex;
+				justify-content: space-around;
+				align-items: flex-start;
+				margin-top: 30px;
+			}
+
+			.faded-carousel-slide-title {
+				position: relative;
+				max-width: 140px;
+				padding: 25px 10px 0;
+				font-size: 14px;
+				text-align: center;
+				cursor: pointer;
+
+				&:before {
+					content: '';
+					position: absolute;
+					top: 0;
+					left: 50%;
+					transform: translateX(-50%);
+					width: 12px;
+					height: 12px;
+					border-radius: 50%;
+					background-color: $lightGray;
+					transition: background-color $transitionSpeed $transitionEasing;
+				}
+
+				&.active {
+					&:before {
+						background-color: $lightBlue;
+					}
+				}
+			}
+		}
 	}
 }
