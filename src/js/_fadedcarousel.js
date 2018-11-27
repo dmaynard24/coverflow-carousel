@@ -121,5 +121,5 @@
 		}
 	}
 
-	initializeFadedCarousels();
+	window.addEventListener('load', initializeFadedCarousels);
 })();

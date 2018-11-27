@@ -1,30 +1,30 @@
 //////////////////////////////
 // Coverflow styles
 //////////////////////////////
-$slideWidthMobile: 320px;
-$slideHeightMobile: 220px;
+$slideWidthMobile: 290px;
+$slideHeightMobile: 200px;
+$nonfocusSpacingMobile: 60px;
 
 $slideWidthTablet: 500px;
 $slideHeightTablet: 330px;
 
 $slideWidthDesktop: 680px;
 $slideHeightDesktop: 330px;
+$nonfocusSpacingDesktop: 120px;
 
 $transitionSpeed: 350ms;
 $transitionEasing: cubic-bezier(0.215, 0.610, 0.355, 1.000);
 /* easeOutCubic */
 
-$nonfocusSpacing: 120px;
-$focusMargin: 140px;
 $maxNonfocusOpacity: 0.5;
 $maxNonfocusScale: 0.6;
 $minNonfocusScale: 0.2;
 $numNonfocusVisible: 3;
 
 $maxImages: 15;
-$lightBlue: #54baea;
+$lightBlue: #00aeff;
 $lightGray: #f0f0f0;
-$darkBlue: #14284b;
+$darkBlue: #0a2245;
 $screen-sm: 768px;
 $screen-md: 992px;
 $screen-lg: 1200px;
@@ -68,18 +68,20 @@ $screen-lg: 1200px;
 	}
 
 	&__caption {
+		font-size: 14px;
 		position: absolute;
 		bottom: 0;
 		left: 0;
 		background: rgba(20, 40, 75, 0.7);
 		color: #fff;
 		text-align: center;
-		padding: 20px;
+		padding: 20px 20px 25px;
 		@media (min-width: $screen-sm) {
-			padding: 20px 40px;
+			padding: 20px 40px 25px;
+			font-size: 16px;
 		}
 		@media (min-width: $screen-md) {
-			padding: 20px 80px;
+			padding: 20px 80px 25px;
 		}
 	}
 
@@ -95,9 +97,9 @@ $screen-lg: 1200px;
 						z-index: $maxImages - $dist;
 						$scale: abs(((($maxNonfocusScale - $minNonfocusScale) / ($numNonfocusVisible - 1)) * ($numNonfocusVisible - ($dist - 1))) + $minNonfocusScale);
 						opacity: ($maxNonfocusOpacity / $numNonfocusVisible) * ($numNonfocusVisible - ($dist - 1));
-						$translateX: (-1 * $nonfocusSpacing * ($dist - 1)) - ($slideWidthMobile / 2) - $focusMargin;
-						$translateXTablet: (-1 * $nonfocusSpacing * ($dist - 1)) - ($slideWidthTablet / 2) - $focusMargin;
-						$translateXDesktop: (-1 * $nonfocusSpacing * ($dist - 1)) - ($slideWidthDesktop / 2) - $focusMargin;
+						$translateX: (-1 * $nonfocusSpacingMobile * ($dist - 1)) - ($slideWidthMobile / 2) - $nonfocusSpacingMobile;
+						$translateXTablet: (-1 * $nonfocusSpacingDesktop * ($dist - 1)) - ($slideWidthTablet / 2) - $nonfocusSpacingDesktop;
+						$translateXDesktop: (-1 * $nonfocusSpacingDesktop * ($dist - 1)) - ($slideWidthDesktop / 2) - $nonfocusSpacingDesktop;
 						transform: translateX($translateX) scale($scale);
 						@media (min-width: $screen-sm) {
 							transform: translateX($translateXTablet) scale($scale);
@@ -126,9 +128,9 @@ $screen-lg: 1200px;
 						z-index: $maxImages - $dist;
 						$scale: abs(((($maxNonfocusScale - $minNonfocusScale) / ($numNonfocusVisible - 1)) * ($numNonfocusVisible - ($dist - 1))) + $minNonfocusScale);
 						opacity: ($maxNonfocusOpacity / $numNonfocusVisible) * ($numNonfocusVisible - ($dist - 1));
-						$translateX: ($nonfocusSpacing * ($dist - 1)) - ($slideWidthMobile / 2) + $focusMargin;
-						$translateXTablet: ($nonfocusSpacing * ($dist - 1)) - ($slideWidthTablet / 2) + $focusMargin;
-						$translateXDesktop: ($nonfocusSpacing * ($dist - 1)) - ($slideWidthDesktop / 2) + $focusMargin;
+						$translateX: ($nonfocusSpacingMobile * ($dist - 1)) - ($slideWidthMobile / 2) + $nonfocusSpacingMobile;
+						$translateXTablet: ($nonfocusSpacingDesktop * ($dist - 1)) - ($slideWidthTablet / 2) + $nonfocusSpacingDesktop;
+						$translateXDesktop: ($nonfocusSpacingDesktop * ($dist - 1)) - ($slideWidthDesktop / 2) + $nonfocusSpacingDesktop;
 						transform: translateX($translateX) scale($scale);
 						@media (min-width: $screen-sm) {
 							transform: translateX($translateXTablet) scale($scale);
@@ -152,39 +154,25 @@ $screen-lg: 1200px;
     width: 40px;
     height: 40px;
 	transform-origin: 50% 50%;
-    transform: translateY(-50%);
-    
-    &:before, &:after {
-        content: '';
-        position: absolute;
-		width: 0;
-        height: 0;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
+	transform: translateY(-50%);
+	display: none;
+	@media (min-width: $screen-md) {
+		display: block;
+	}
 }
 
 .prev-arrow {
 	@extend .arrow-control;
 	left: 0%;
-
-	&:before {
-		border-top: 10px solid transparent;
-		border-bottom: 10px solid transparent;
-		border-right: 18px solid $lightBlue;
-	}
+	background: url('../assets/img/left-arrow.svg') center center no-repeat;
+	background-size: 16px 26px;
 }
 
 .next-arrow {
 	@extend .arrow-control;
 	right: 0%;
-
-	&:after {
-		border-top: 10px solid transparent;
-		border-bottom: 10px solid transparent;
-		border-left: 18px solid $lightBlue;
-	}
+	background: url('../assets/img/right-arrow.svg') center center no-repeat;
+	background-size: 16px 26px;
 }
 
 //////////////////////////////
@@ -200,18 +188,30 @@ $screen-lg: 1200px;
 		pointer-events: auto;
 	}
 
+	.container {
+		@media (max-width: 767px) {
+			padding: 0;
+		}
+	}
+
 	.faded-carousel-title {
 		position: relative;
 		margin: 0 0 40px;
+		@media (max-width: 767px) {
+			padding: 0 15px;
+		}
 
 		&:after {
 			content: '';
 			position: absolute;
 			bottom: -20px;
-			left: 0;
+			left: 15px;
 			width: 40px;
 			height: 2px;
 			background-color: $lightBlue;
+			@media (min-width: $screen-sm) {
+				left: 0;
+			}
 		}
 	}
 
