@@ -14,6 +14,10 @@
 	<body>
 		<nav></nav>
 		<main>
+			<!-- 
+				This carousel has an adaptive design.
+				The slide titles and captions are rendered twice and Sass is used to toggle their visibility based at different breakpoints.
+			-->
 			<section class="faded-carousel-component">
 				<div class="container">
 					<h2 class="faded-carousel-title">Investment Advantages</h2>
@@ -21,36 +25,87 @@
 						<div class="coverflow">
 							<a class="prev-arrow"></a>
 							<div class="coverflow__slide" style="background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-1.jpg)">
-								<div class="coverflow__caption">Strong industry relationships create robust sourcing channel for off-market investment opportunities</div>
+								<div class="coverflow__slide-content">
+									<div class="coverflow__title">Global Network</div> <!-- these titles are only visible on mobile and tablet portrait -->
+									<p class="coverflow__caption">Strong industry relationships create robust sourcing channel for off-market investment opportunities.</p> <!-- these captions are hidden on mobile and tablet portrait -->
+								</div>
 							</div>
 							<div class="coverflow__slide" style="background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-2.jpg)">
-								<div class="coverflow__caption">Strong industry relationships create robust sourcing channel for off-market investment opportunities</div>
+								<div class="coverflow__slide-content">
+									<div class="coverflow__title">Local Expertise</div>
+									<p class="coverflow__caption">Nulla cursus feugiat dui vitae fermentum. Quisque ac dui placerat, varius arcu at, pretium dolor.</p>
+								</div>
 							</div>
 							<div class="coverflow__slide" style="background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-3.jpg)">
-								<div class="coverflow__caption">Strong industry relationships create robust sourcing channel for off-market investment opportunities</div>
+								<div class="coverflow__slide-content">
+									<div class="coverflow__title">Scale</div>
+									<p class="coverflow__caption">Praesent euismod purus a gravida mollis. Morbi eget nulla ac enim bibendum dictum in vitae sem.</p>
+								</div>
 							</div>
 							<div class="coverflow__slide" style="background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-4.jpg)">
-								<div class="coverflow__caption">Strong industry relationships create robust sourcing channel for off-market investment opportunities</div>
+								<div class="coverflow__slide-content">
+									<div class="coverflow__title">Underwriting and Due Diligence</div>
+									<p class="coverflow__caption">Nunc sapien orci, accumsan sit amet metus in, imperdiet elementum tellus.</p>
+								</div>
 							</div>
 							<div class="coverflow__slide" style="background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-5.jpg)">
-								<div class="coverflow__caption">Strong industry relationships create robust sourcing channel for off-market investment opportunities</div>
+								<div class="coverflow__slide-content">
+									<div class="coverflow__title">Fully Integrated Platform</div>
+									<p class="coverflow__caption">Donec finibus dictum ex, semper sodales lorem blandit non. In hac habitasse platea dictumst.</p>
+								</div>
 							</div>
 							<div class="coverflow__slide" style="background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-6.jpg)">
-								<div class="coverflow__caption">Strong industry relationships create robust sourcing channel for off-market investment opportunities</div>
+								<div class="coverflow__slide-content">
+									<div class="coverflow__title">Operational Expertise</div>
+									<p class="coverflow__caption">Vestibulum id massa pretium, gravida neque sit amet, vestibulum arcu. Nam iaculis eu sem et luctus.</p>
+								</div>
 							</div>
 							<div class="coverflow__slide" style="background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/168886/bob-ross-7.jpg)">
-								<div class="coverflow__caption">Strong industry relationships create robust sourcing channel for off-market investment opportunities</div>
+								<div class="coverflow__slide-content">
+									<div class="coverflow__title">Attractive Risk-Adjusted Returns</div>
+									<p class="coverflow__caption">Maecenas vitae diam tellus. Curabitur ornare aliquet commodo. Aenean ante nisi, porta dignissim convallis.</p>
+								</div>
 							</div>
 							<a class="next-arrow"></a>
 						</div>
-						<div class="faded-carousel-slide-titles">
-							<div class="faded-carousel-slide-title">Global Network</div>
-							<div class="faded-carousel-slide-title">Local Expertise</div>
-							<div class="faded-carousel-slide-title">Scale</div>
-							<div class="faded-carousel-slide-title">Underwriting and Due Diligence</div>
-							<div class="faded-carousel-slide-title">Fully Integrated Platform</div>
-							<div class="faded-carousel-slide-title">Operational Expertise</div>
-							<div class="faded-carousel-slide-title">Attractive Risk-Adjusted Returns</div>
+						<div class="slide-dots"> <!-- these dots are only visible on mobile and tablet portrait -->
+							<div class="slide-dot"></div>
+							<div class="slide-dot"></div>
+							<div class="slide-dot"></div>
+							<div class="slide-dot"></div>
+							<div class="slide-dot"></div>
+							<div class="slide-dot"></div>
+							<div class="slide-dot"></div>
+						</div>
+						<div class="slide-titles-captions">
+							<div class="slide-title-caption">
+								<div class="slide-title">Global Network</div> <!-- these titles are hidden on mobile and tablet portrait -->
+								<p class="slide-caption">Strong industry relationships create robust sourcing channel for off-market investment opportunities.</p> <!-- these captions are only visible on mobile and tablet portrait -->
+							</div>
+							<div class="slide-title-caption">
+								<div class="slide-title">Local Expertise</div>
+								<p class="slide-caption">Nulla cursus feugiat dui vitae fermentum. Quisque ac dui placerat, varius arcu at, pretium dolor.</p>
+							</div>
+							<div class="slide-title-caption">
+								<div class="slide-title">Scale</div>
+								<p class="slide-caption">Praesent euismod purus a gravida mollis. Morbi eget nulla ac enim bibendum dictum in vitae sem.</p>
+							</div>
+							<div class="slide-title-caption">
+								<div class="slide-title">Underwriting and Due Diligence</div>
+								<p class="slide-caption">Nunc sapien orci, accumsan sit amet metus in, imperdiet elementum tellus.</p>
+							</div>
+							<div class="slide-title-caption">
+								<div class="slide-title">Fully Integrated Platform</div>
+								<p class="slide-caption">Donec finibus dictum ex, semper sodales lorem blandit non. In hac habitasse platea dictumst.</p>
+							</div>
+							<div class="slide-title-caption">
+								<div class="slide-title">Operational Expertise</div>
+								<p class="slide-caption">Vestibulum id massa pretium, gravida neque sit amet, vestibulum arcu. Nam iaculis eu sem et luctus.</p>
+							</div>
+							<div class="slide-title-caption">
+								<div class="slide-title">Attractive Risk-Adjusted Returns</div>
+								<p class="slide-caption">Maecenas vitae diam tellus. Curabitur ornare aliquet commodo. Aenean ante nisi, porta dignissim convallis.</p>
+							</div>
 						</div>
 					</div>
 				</div>

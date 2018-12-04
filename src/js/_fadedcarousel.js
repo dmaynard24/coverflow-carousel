@@ -7,7 +7,8 @@
 			// DOM elements
 			var coverflowContainer = carousel.querySelector('.coverflow'),
 				coverflowSlides = carousel.querySelectorAll('.coverflow__slide'),
-				coverflowSlideTitles = carousel.querySelectorAll('.faded-carousel-slide-title'),
+				coverflowSlideDots = carousel.querySelectorAll('.slide-dot')
+				coverflowSlideTitleCaptions = carousel.querySelectorAll('.slide-title-caption'),
 				prevArrow = carousel.querySelector('.prev-arrow'),
 				nextArrow = carousel.querySelector('.next-arrow');
 
@@ -15,8 +16,11 @@
 			for (var i = 0; i < coverflowSlides.length; i++) {
 				coverflowSlides[i].dataset.coverflowIndex = i + 1;
 			}
-			for (var i = 0; i < coverflowSlideTitles.length; i++) {
-				coverflowSlideTitles[i].dataset.coverflowIndex = i + 1;
+			for (var i = 0; i < coverflowSlideDots.length; i++) {
+				coverflowSlideDots[i].dataset.coverflowIndex = i + 1;
+			}
+			for (var i = 0; i < coverflowSlideTitleCaptions.length; i++) {
+				coverflowSlideTitleCaptions[i].dataset.coverflowIndex = i + 1;
 			}
 			var coverflowPosition = Math.floor(coverflowSlides.length / 2) + 1;
 			// var coverflowPosition = 1;
@@ -71,8 +75,11 @@
 			for (var i = 0; i < coverflowSlides.length; i++) {
 				coverflowSlides[i].addEventListener('click', jumpToSlide);
 			}
-			for (var i = 0; i < coverflowSlideTitles.length; i++) {
-				coverflowSlideTitles[i].addEventListener('click', jumpToSlide);
+			for (var i = 0; i < coverflowSlideDots.length; i++) {
+				coverflowSlideDots[i].addEventListener('click', jumpToSlide);
+			}
+			for (var i = 0; i < coverflowSlideTitleCaptions.length; i++) {
+				coverflowSlideTitleCaptions[i].addEventListener('click', jumpToSlide);
 			}
 			window.addEventListener('keyup', function(e) {
 				if (e.which === 37) { //left arrow
