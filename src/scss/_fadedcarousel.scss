@@ -287,18 +287,16 @@ $screen-lg: 1200px;
 			.slide-title-caption {
 				position: relative;
 				text-align: center;
-				opacity: 0;
-				transition: opacity $transitionSpeed $transitionEasing;
-				width: 100%;
-				margin-right: -100%;
-				float: left;
 				padding: 0 15px;
 				font-size: 14px;
+				@media (max-width: 991px) {
+					opacity: 0;
+					transition: opacity $transitionSpeed $transitionEasing;
+					width: 100%;
+					margin-right: -100%;
+					float: left;
+				}
 				@media (min-width: $screen-md) {
-					opacity: 1;
-					width: auto;
-					margin-right: auto;
-					float: none;
 					padding: 25px 10px 0;
 					max-width: 140px;
 					cursor: pointer;
